@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <script src ="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  
+  
+ 
+ <script> 
+  $(function(){
+  $(document).ready(function(){
+    $("p").hide();
+    
+    });
+    
+   $(".seto").on("click",function(){
+      $("p").show(5000); 
+  });
+  });
+  </script>
+ 
+  
+  
+<title>myMemoPad</title>
+<style>
+  body{
+    margin:30;
+    padding:0;
+    text-align:CENTER;
+    background-color: #FFEEFF
+}
+header{
+    background-color: #DCC2FF;
+    border-bottom: 1px solid #FFEEFF;
+    text-align: center;
+    color:#CC6699;
+}
+main{
+    border-bottom:10px solid #ccc;
+    position:relative;
+}
+footer{
+    background-color: #FFEEFF ;
+    text-align: center;
+}
+
+li{ /*ぼたん*/
+    margin:300;
+    list-style-type:none;
+    background-color: #FFDDFF;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+}
+li:hover{
+    background: #FFDDFF;
+    color:#FFDDFF;
+}
+textarea{
+  width: 600px;
+  height: 30px;
+  font-size:80%;
+  box-shadow: 3px 3px 3px 3px #555;
+}
+
+  p1{
+    font-size: 200%;
+  }
+  
+  </style>
+  
+
+</head>
+<body>
+<header>
+  <h1>夏休みの思い出</h1>
+</header>
+
+<main>
+  <h2>夏休みはあっという間だったのでまだ終わっていません</h2>
+  
+  <p1 class="seto">おっかけ</p1>
+  <p>好きな舞台俳優さんのおっかけは夏休みになっても通常営業でした。</p>
+　
+  <p><img id=pic src="gazou/PFHH3690.JPG" width="500" height="100%"></p>
+  
+  <p><img id=pic src="gazou/KQYW5601.JPG" width="500" height="100%"></p>
+  
+  
+  <p1 class="seto">近畿旅行</p1>
+  <p>近畿地方に旅行しました。</p>
+  <p>三重県の鳥羽水族館に行ったのですが、ラッコが可愛すぎてラッコばっかり見ていました。</p>
+  <p>え、、本当に、、、めっちゃ可愛いんですよ。</p>
+  <p>何が可愛いか言葉で説明しようとしたのですがだめですね、語彙では到底語れないようです。（語彙力がないだけ）</p>
+  <p>この可愛さはぜひ鳥羽水族館に行って生で感じていただきたいです。</p>
+  <p><img id=pic src="gazou/KOLP8782.JPG" width="500" height="100%"></p>
+  
+  <p>大阪で生まれた人間なのですが、初めて道頓堀に行きました。</p>
+  <p>大きい！すごい！！</p>
+  <p><img id=pic src="gazou/RAYC7526.JPG" width="500" height="100%"></p>
+  
+ 
+</main>
+
+<footer><small>®ﾑｽｶｼｶｯﾀｰｰｰｰｰｰｰｰ!!</small></footer>
+
+</body>
+
+</html>
