@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ビデオで認識</title>
+
+<!-- 1. ここにP5.jsを読み込む -->
+<script src="https://cdn.jsdelivr.net/npm/p5"></script>
+<script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+
+<!-- 2.以下にsetup関数とdraw関数を定義 -->
+<script>
+let video;
+let poseNet;
+let poses = [];
+let skeletons = [];
+
+function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+
+  // Create a new poseNet method with a single detection
+  poseNet = ml5.poseNet(video, modelReady);
+  // This sets up an event that fills the global variable "poses"
+  // with an array every time new poses are detected
+  poseNet.on('pose', function (results) {
+    poses = results;
+  });
+  // Hide the video element, and just show the canvas
+  video.hide();
+}
+
+function modelReady() {
+  select('#status').html('Model Loaded');
+}
+    
+function preload(){
+  osushi1 = loadImage('gazou/baran.png');
+  osushi2 = loadImage('gazou/makimono_kanpyo.png');
+  osushi3 = loadImage('gazou/sushi_salmon.png');
+  osushi4 = loadImage('gazou/sushi_akami.png');
+}
+
+function draw() {
+  image(video, 0, 0, width, height);
+
+  // We can call both functions to draw all keypoints and the skeletons
+  drawKeypoints();
+  drawSkeleton();
+}
+
+// A function to draw ellipses over the detected keypoints
+function drawKeypoints()  {
+  // Loop through all the poses detected
+  for (let i = 0; i < poses.length; i++) {
+    // For each pose detected, loop through all the keypoints
+    for (let j = 0; j < poses[i].pose.keypoints.length; j++) {
+      // A keypoint is an object describing a body part (like rightArm or leftShoulder)
+      let keypoint = poses[i].pose.keypoints[0];
+      let keypoint1 = poses[i].pose.keypoints[0];
+      let keypoint2 = poses[i].pose.keypoints[0];
+      let keypoint3 = poses[i].pose.keypoints[0];
+      // Only draw an ellipse is the pose probability is bigger than 0.2
+      if (keypoint.score > 0.6) {
+        image(osushi4,keypoint.position.x-50,keypoint.position.y-50,150,150);
+      }else if(keypoint1.score > 0.4) {
+        image(osushi3,keypoint.position.x-50,keypoint.position.y-50,150,150);
+      }else if(keypoint2.score > 0.2) {
+        image(osushi2,keypoint.position.x-50,keypoint.position.y-50,150,150);
+      }else if(keypoint3.score > 0.1) {
+        image(osushi1,keypoint.position.x-50,keypoint.position.y-50,150,150);
+   }
+  }
+ }
+}
+
+// A function to draw the skeletons
+function drawSkeleton() {
+  // Loop through all the skeletons detected
+  for (let i = 0; i < poses.length; i++) {
+    // For every skeleton, loop through all body connections
+    for (let j = 0; j < poses[i].skeleton.length; j++) {
+      let partA = poses[i].skeleton[j][0];
+      let partB = poses[i].skeleton[j][1];
+      stroke(255, 0, 0);
+    }
+  }
+}
+
+  
+</script>
+</head>
+<body>
+<h2>顔の認識率を高くしてお寿司の原点にして頂点、まぐろを目指そう！</h2>
+    <p>10%以上：ばらん</p>
+    <p>20%以上：かんぴょう巻き</p>
+    <p>40%以上：サーモン</p>
+    <p>60%以上：まぐろ</p>
+<div id="status"></div>
+<div id="result"></div>
+<div id="probability"></div>
+</body>
+</html>
