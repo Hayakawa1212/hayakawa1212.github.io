@@ -1,0 +1,240 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>暇つぶしに付き合ってくれるハムちゃん</title>
+</head>
+<style>
+  .center-box {
+    text-align:center;
+  }
+  .large-text {
+    font-size: 4.0rem;
+  }
+  header{
+     text-align:center;
+     color:#cd5c5c;
+  }
+    body{
+     color:#808080;
+    }
+</style>
+
+<header>
+    <h1>僕ハムちゃん！キミのｵﾄﾓﾀﾞﾁさ！！！</h1>    
+</header>
+    
+<body>
+    <h2>このハムちゃんはあなたに遊んでほしいようです</h2>
+    <p>ハムちゃんはインテリジェンスが高いスーパーハムスターなので、いろんな遊びが出来ますよ！</p>
+    <h3>ゲーム</h3>
+    <p>・スマホゲーム：狐がリスを狩る食物連鎖ゲームが遊べます</p>
+    <p>・カメラゲーム：おすしの原点にして頂点、まぐろを目指すゲームが遊べます</p>
+    <h3>占い</h3>
+    <p>・あなたの星座、血液型のいずれかを言ってみてください</p>
+    <h4>おしゃべり</h4>
+    <p>ハムちゃんは人間の言葉をお勉強中です</p>
+    <p>・あいさつ</p>
+    <p>・食べ物の好き嫌い</p>
+    <p>・遊びの好き嫌い</p>
+    <p>・ひまわりの種との冷えきった関係性</p>
+    <p>・何かのおすすめ</p>
+    <p>・ハムちゃんの仲間について聞いてみると・・・？</p>
+<p class="center-box"><img id="mic" src="gazou/animal_hamster.png"></p>
+<div id="result-div" class="large-text"></div>
+<script>
+  const resultDiv = document.querySelector('#result-div');
+  const micDiv = document.querySelector('#mic');
+  let speakingtime = 0;
+  
+  // 音声認識機能(Chrome)
+  let rec = new webkitSpeechRecognition();
+  let stopped = true;
+  rec.continuous = true;
+  rec.interimResults = false;
+  rec.lang = 'ja-JP';
+
+  micDiv.onclick = function () {
+    if (stopped == true) {
+      stopped = false;
+      resultDiv.innerHTML = "";
+      rec.start();
+    } else {
+      stopped = true;
+      rec.stop();
+    }
+  }
+
+  rec.onstart = function () { 
+    console.log('on start');
+    micDiv.setAttribute("src","gazou/animal_hamster.png");
+    speakingtime = 0;
+  };
+
+  rec.onend = function () { 
+    console.log('on end');
+    micDiv.setAttribute("src","gazou/animal_hamstert_mawashiguruma.png");
+    if (stopped == false) {
+      setTimeout(function () {
+      rec.start();
+    },speakingtime);
+    }
+  };
+
+  rec.onresult = function (e) {
+    rec.stop();
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        console.log(e);
+        let text = e.results[i][0].transcript;
+        console.log(text);
+        speak(reply(text));
+        speakingtime = text.length * 200;
+        console.log("estimate:", speakingtime, "ms");
+        //speak(text);
+        resultDiv.innerHTML = text;
+        resultDiv.innerHTML = reply(text);
+      }
+    }
+  }
+  
+ 
+  
+  function reply(text){
+      //リンク貼り付けシリーズ
+      let re = new RegExp(".*スマホゲーム.*"); //前後にどんな表現があっても角野卓造でマッチする
+      let rikka = new RegExp(".*ハムちゃんの仲間.*");
+      let shiki = new RegExp(".*カメラゲーム.*");
+      let dai = new RegExp(".*ゲーム.*");
+      let tsubasa = new RegExp(".*占い.*");
+      //星座占い
+      let hituzi = new RegExp(".*牡羊座.*");
+      let ushi = new RegExp(".*牡牛座.*");
+      let hutago = new RegExp(".*双子座.*");
+      let kani = new RegExp(".*蟹座.*");
+      let shishi = new RegExp(".*獅子座.*");
+      let otome = new RegExp(".*乙女座.*");
+      let tenbin = new RegExp(".*天秤座.*");
+      let sasori = new RegExp(".*蠍座.*");
+      let ite = new RegExp(".*射手座.*");
+      let yagi = new RegExp(".*山羊座.*");
+      let mizugame = new RegExp(".*水瓶座.*");
+      let uo = new RegExp(".*魚座.*");
+      //血液型占い
+      let a = new RegExp(".*a型.*");
+      let b = new RegExp(".*B 型.*");
+      let o = new RegExp(".*大型.*");
+      let ab = new RegExp(".*ab型.*");
+      //おしゃべり
+      let syuu = new RegExp(".*好きな食べ物.*");
+      let eichi = new RegExp(".*嫌いな食べ物.*");
+      let issei = new RegExp(".*好きな遊び.*");
+      let ichiru = new RegExp(".*嫌いな遊び.*");
+      let sora = new RegExp(".*おはよう.*");
+      let morihito = new RegExp(".*こんにちは.*");
+      let soushi = new RegExp(".*こんばんは.*");
+      let ren = new RegExp(".*売買.*");
+      let nozomu = new RegExp(".*やっほー.*");
+      let kouki = new RegExp(".*ハムちゃん.*");
+      let kensuke = new RegExp(".*ひまわり.*");
+      let ryouta = new RegExp(".*おすすめ.*");
+      
+      if(re.test(text)){
+          return (onLoad=setTimeout("location.href='https://hayakawa1212.github.io/game.html'"));
+      }else if(rikka.test(text)){
+          return (onLoad=setTimeout("location.href='https://hayakawa1212.github.io/network.html'"));
+      }else if(shiki.test(text)){
+          return (onLoad=setTimeout("location.href='https://hayakawa1212.github.io/snow.html'"));
+      }else if(dai.test(text)){
+          return ("何して遊ぶ？？スマホゲーム？カメラゲーム？");
+      }else if(tsubasa.test(text)){
+          return ("自分の星座か血液型を教えてね！");
+      }else if(hituzi.test(text)){
+          return ("2020年の牡羊座は、運気のアップダウンが激しい1年となるでしょう。");     
+      }else if(ushi.test(text)){
+          return ("2020年の牡牛座は、なにかと多忙で時間に追われることもありますが、充実した実り多い一年を過ごせそうです。");
+      }else if(hutago.test(text)){
+          return ("2020年、双子座は少し苦労の多い1年を送ることになります。");
+      }else if(kani.test(text)){
+          return ("2020年の蟹座は、運気アップによる好調を感じられると1年となるでしょう。");
+      }else if(shishi.test(text)){
+          return ("2020年、獅子座の運勢はやっと上昇期に入ります。これまで停滞していた物事が動いていく年になるでしょう。");
+      }else if(otome.test(text)){
+          return ("2020年は乙女座にとって恐怖の年になるかもしれません…。");
+      }else if(tenbin.test(text)){
+          return ("天秤座の人は2020年、新たな趣味を増やし非常に楽しい年を過ごすことができるでしょう。");
+      }else if(sasori.test(text)){
+          return ("蠍座にとって2020年は公私ともに大きく飛躍する一年となるでしょう。");
+      }else if(ite.test(text)){
+          return ("2020年の射手座の総合運は、一日の出来事をその日の終わりに整理することでぐんと良くなります。 ");
+      }else if(yagi.test(text)){
+          return ("山羊座の人は総合的に見て2020年周囲の友人と明るい年を過ごせる事になりそうです。");
+      }else if(mizugame.test(text)){
+          return ("水瓶座の2020年度は変化の年です。 持ち前の負けん気を活かして邁進してください。");
+      }else if(uo.test(text)){
+          return ("魚座の2020年の総合運は、何事にも頑張る気持ちを忘れずに行動することで運気が上がります。");
+    　}else if(a.test(text)){
+          return ("この一年は非常に面白く、それは良くも悪くも変化に激しい一年ということが言えるでしょう。");
+    　}else if(b.test(text)){
+          return ("自分自身をいかに律することができるかが一つのキーワードになってくる一年といえます。");
+    　}else if(o.test(text)){
+          return ("この一年は大勢で時間を過ごすよりも、一対一のコミュニケーションを密にして、そこに新しい発見を求めていくことが相応しい一年ということが言えます。");
+    　}else if(ab.test(text)){
+          return ("この一年はあまり表に出ることなく、ひっそりと裏側で活躍する方が結果が得られやすい位置にということが言えるでしょう。");
+      }else if(syuu.test(text)){
+          return ("チーズと果物が好きだよ！！");
+      }else if(eichi.test(text)){
+          return ("ペレット嫌い・・・・おいしくない・・");
+      }else if(issei.test(text)){
+          return ("お部屋をお散歩することが好きだよ！！");
+      }else if(ichiru.test(text)){
+          return ("滑車を回しすぎると疲れちゃうんだ・・・");
+      }else if(sora.test(text)){
+          return ("おはよう！！ハムちゃんだよ！！");
+      }else if(morihito.test(text)){
+          return ("こんにちは！！ハムちゃんだよ！！");
+      }else if(soushi.test(text)){
+          return ("こんばんは！！ハムちゃんだよ！！");
+      }else if(ren.test(text)){
+          return ("バイバーイ！！ハムちゃんでした！！");
+      }else if(noznomu.test(text)){
+          return ("やっほー！！ハムちゃんだよ！！");
+      }else if(kouki.test(text)){
+          return ("はい！！ハムちゃんです！！");
+      }else if(kensuke.test(text)){
+          return ("ひまわりの種はもう飽きたのさ・・・");
+      }else if(ryouta.test(text)){
+          return ("全部！");
+      }else{
+          return "人間の言葉は難しいよ";
+      }
+  }
+
+  // 発話機能をインスタンス化
+  let msg = new SpeechSynthesisUtterance();
+  let voices = window.speechSynthesis.getVoices();
+
+  function speak(text) {
+    // 以下オプション設定（日本語は効かないもよう。。）
+    msg.voice = voices[7]; // 7:Google 日本人 ja-JP ※他は英語のみ
+    msg.volume = 1.0; // 音量 min 0 ~ max 1
+    msg.rate = 1.0; // 速度 min 0 ~ max 10
+    msg.pitch = 1.0; // 音程 min 0 ~ max 2
+
+    msg.text = text; // 喋る内容
+    msg.lang = 'ja-JP'; // en-US or ja-JP
+    // msg.lang = 'en-US'; // en-US or ja-JP
+
+    // 発話実行
+    speechSynthesis.speak(msg);
+  }
+  
+  // 終了時の処理
+  msg.onend = function (event) {
+    console.log('喋った時間：' + event.elapsedTime + 'ms');
+  }
+
+
+</script>
+</body>
+</html>
